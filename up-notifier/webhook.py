@@ -7,7 +7,7 @@ from up_api import Transaction, UpAPI
 def lambda_handler(event, context: Dict[str, Any]):
     data = json.loads(event['body'])
     handle_result = handle_transaction_event(data)
-    return
+    return handle_result
 
 def get_transaction_from_event(event) -> Transaction:
     transaction_id = event["transaction"]["data"]["id"]
