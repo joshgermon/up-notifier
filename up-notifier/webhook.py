@@ -1,15 +1,13 @@
-from http.server import BaseHTTPRequestHandler
+import json
 import os
+from typing import Dict, Any
 import requests
 from up_api import Transaction, UpAPI
 
-class handler(BaseHTTPRequestHandler):
-    def do_POST(self):
-        handle_result = handle_transaction_event(self.body)
-        self.send_response(200)
-        self.send_header('Content-type','application/json')
-        self.end_headers()
-        return
+def lambda_handler(event, context: Dict[str, Any]):
+    data = json.loads(event['body'])
+    handle_result = handle_transaction_event(data)
+    return
 
 def get_transaction_from_event(event) -> Transaction:
     transaction_id = event["transaction"]["data"]["id"]
