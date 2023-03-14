@@ -38,7 +38,8 @@ class UpAPI:
 
     @classmethod
     def _get(self, path: str):
-         return requests.get(f"{self._BASE_URL}{path}", headers={"Authorization": f"Bearer {self._TOKEN}"}).json()
+         print(f"{self._BASE_URL}{path}")
+         return requests.get(f"{self._BASE_URL}/{path}", headers={"Authorization": f"Bearer {self._TOKEN}"}).json()
 
     @classmethod
     def get_all_transactions(self, path) -> List[Transaction]:
@@ -47,11 +48,13 @@ class UpAPI:
 
     @classmethod
     def get_transaction_by_id(self, id):
-        transaction = self._get(f"/transaction/{id}")
+        transaction = self._get(f"/transactions/{id}")
         return self.parse_transaction(transaction)
 
     @classmethod
-    def parse_transaction(transaction: Dict[str, Any]):
-        parsed_transaction = transaction["attributes"]
-        parsed_transaction["id"] = transaction["id"]
+    def parse_transaction(self, transaction: Dict[str, Any]):
+        print("transaction HEREREEE")
+        print(transaction)
+        parsed_transaction = transaction['data']["attributes"]
+        parsed_transaction["id"] = transaction['data']["id"]
         return Transaction.parse_obj(parsed_transaction)

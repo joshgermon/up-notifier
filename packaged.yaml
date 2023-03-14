@@ -1,14 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Transform: 'AWS::Serverless-2016-10-31'
+Transform: AWS::Serverless-2016-10-31
 Description: up-notifier
-
 Resources:
   WebhookFunction:
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
     Properties:
       Handler: webhook.lambda_handler
       Runtime: python3.9
-      CodeUri: ./up-notifier
+      CodeUri: s3://general-lambda-artifacts/2886d2024710dc3109a38666bff0b070
       MemorySize: 128
       Timeout: 30
       Events:
@@ -17,3 +16,5 @@ Resources:
           Properties:
             Path: /webhook
             Method: post
+    Metadata:
+      SamResourceId: WebhookFunction
