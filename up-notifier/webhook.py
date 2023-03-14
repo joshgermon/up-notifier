@@ -1,6 +1,7 @@
 import json
 from typing import Dict, Any
 import requests
+import os
 from up_api import Transaction, UpAPI
 
 def lambda_handler(event, context: Dict[str, Any]):
